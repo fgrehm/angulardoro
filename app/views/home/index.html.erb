@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Angulardoro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-app="angulardoroApp">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <span class="navbar-brand">Angulardoro</span>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3" ng-controller="ActivitiesCtrl">
+          <div class="list-group" ui-sortable="sortableOptions" ng-model="activities">
+            <a class="list-group-item" href="#" ng-repeat="activity in activities" ng-class="{active: activity.active}" ng-click="selectActivity(activity)">
+              <!-- FOR THE FUTURE span class="badge"><%= rand(10) %></span -->
+              {{activity.name}}
+            </a>
+          </div>
+          <hr>
+          <form ng-submit="addActivity()">
+            <input type="text" class="form-control" ng-model="newActivityName" placeholder="New activity (ex: Write a blog post)">
+          </form>
+        </div>
+        <div class="col-md-9" ng-controller="ActivityCtrl">
+          <form ng-submit="updateActivity()">
+            <div class="pomodoro-list">
+              <span class="glyphicon glyphicon-bell done"></span>
+              <span class="glyphicon glyphicon-bell done"></span>
+              <span class="glyphicon glyphicon-bell"></span>
+            </div>
+            <h3>
+              <span ng-hide="editorEnabled" ng-click="editorEnabled=!editorEnabled" title="Click to edit">
+                {{selectedActivity.name}}
+              </span>
+              <span ng-show="editorEnabled">
+                <input type="text" class="form-control" ng-model="selectedActivity.name">
+              </span>
+            </h3>
+            <textarea class="form-control" rows="10"></textarea>
+          </form>
+          <hr>
+          <button type="button" class="btn btn-danger pull-right" ng-click="removeActivity()">
+            <span class="glyphicon glyphicon-trash"></span>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_include_tag 'application' %>
+    <!--
+      Uncomment if really needed ;)
+      <script src="//code.jquery.com/jquery.min.js"></script>
+      <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    -->
+  </body>
+</html>

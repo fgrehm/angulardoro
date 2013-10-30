@@ -1,0 +1,12 @@
+body {
+  padding-top: 70px;
+}
+
+.pomodoro-list {
+  font-size: 20px;
+  color: gray;
+}
+
+.pomodoro-list .done {
+  color: red;
+}
